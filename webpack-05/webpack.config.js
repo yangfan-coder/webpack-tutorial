@@ -23,6 +23,10 @@ module.exports = {
         test: /.css$/, // 配置css的后缀名
         use: ['style-loader', 'css-loader'], //tips:执行的顺序是右到左的
       },
+      {
+        test: /.less$/, // 配置less的后缀名
+        use: ['style-loader', 'css-loader', 'less-loader'], //tips:执行的顺序是右到左的
+      },
     ],
   },
 };
