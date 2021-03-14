@@ -1,6 +1,6 @@
 # webpack-06
 
-## 解析文件图片
+## 解析文件图片 file-loader
 
 执行以下的命令、生成的文件在dist文件夹中 自己手动创建index.html 进行引入search.js
 ```shell
