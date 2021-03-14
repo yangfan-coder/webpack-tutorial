@@ -19,6 +19,10 @@ module.exports = {
         test: /.js$/,
         use: 'babel-loader',
       },
+      {
+        test: /.css$/, // 配置css的后缀名
+        use: ['style-loader', 'css-loader'], //tips:执行的顺序是右到左的
+      },
     ],
   },
 };
