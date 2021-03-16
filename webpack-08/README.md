@@ -43,6 +43,6 @@ loader不能做的事情Plugin都能干
 
 ## url-loader 和file-loader的区别？
 
-首先url-loader底层调取也是file-loader，小于limit字节的文件会被转为DataURl，文件大小大于limit，url-loader会调用file-loader进行处理，参数也会直接传给file-loader
+首先url-loader底层调取也是file-loader，小于limit字节的文件会被转为DataURl，文件大小大于limit，url-loader会调用file-loader进行处理，参数也会直接传给file-loader，这也是前端优化的构建的重要一环
 
 
