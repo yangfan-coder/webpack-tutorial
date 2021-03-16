@@ -2,6 +2,8 @@
 
 const path = require('path');
 const MiniCssExtractplugin = require('mini-css-extract-plugin'); // 提取css单独一个文件
+const OptimizeCssAssetsWebpackPlugin = require('optimize-css-assets-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   entry: {
@@ -55,6 +57,38 @@ module.exports = {
   plugins: [
     new MiniCssExtractplugin({
       filename: '[name]_[contenthash:8].css',
+    }),
+    new OptimizeCssAssetsWebpackPlugin({
+      assetNameRegExp: /.css$/g,
+      cssProcessor: require('cssnano'),
+    }),
+    new HtmlWebpackPlugin({
+      template: path.join(__dirname, 'src/search.html'),
+      filename: 'search.html',
+      chunks: ['search'],
+      inject: true,
+      minify: {
+        html5: true,
+        collapseWhitespace: true,
+        preserveLineBreaks: false,
+        minifyCSS: true,
+        minifyJS: true,
+        removeComments: false,
+      },
+    }),
+    new HtmlWebpackPlugin({
+      template: path.join(__dirname, 'src/index.html'),
+      filename: 'index.html',
+      chunks: ['index'],
+      inject: true,
+      minify: {
+        html5: true,
+        collapseWhitespace: true,
+        preserveLineBreaks: false,
+        minifyCSS: true,
+        minifyJS: true,
+        removeComments: false,
+      },
     }),
   ],
 };
