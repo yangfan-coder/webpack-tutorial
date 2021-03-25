@@ -27,3 +27,5 @@ webpack-cli: "^3.3.2"
 - [`webpack-12`](./webpack-12/README.md) &mdash; 日常使用的 plugins 之 代码压缩
 - [`webpack-13`](./webpack-13/README.md) &mdash; 日常使用的 plugins 之 自动删除构建目录
 - [`webpack-14`](./webpack-14/README.md) &mdash; 日常使用的 plugins 之 autoprefixer
+- [`webpack-15`](./webpack-15/README.md) &mdash; 配置 HTML5 的动态适配方案
+- [`webpack-16`](./webpack-16/README.md) &mdash; 多页面打包通用方案
