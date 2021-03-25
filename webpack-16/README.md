@@ -1,43 +1,44 @@
-# webpack-15
+# webpack-16
 
-## css px 自动转换成 rem
+## 多页面打包通用方案
 
-```shell
+原理：创建不同的文件夹的名称,为输出的页面名称，然后通过 glob.sync 获取当前的文件的目录数组，循环当前的数组 进行多个 HtmlWebpackPlugin 的模板输出
 
-npm i px2rem-loader raw-loader@0.5.1 -D
-npm i lib-flexible -S
+核心代码实现： [setMAP](./webpack.prod.js) <br />
 
-```
-
-执行以下的命令、生成的文件在 dist 文件夹中 自己手动创建 index.html 进行引入 search.js
+结构：<br />
 
 ```shell
-npm run build
+.
+├── index
+│   ├── helloWorld.js
+│   ├── index.html
+│   └── index.js
+└── search
+    ├── fonts
+    ├── images
+    ├── index.html
+    ├── index.js
+    ├── meta.html
+    ├── search.css
+    └── search01.less
+
 ```
 
 <br />
 
-### 资源内联
+## 安装的依赖
 
-- 页面框架的初始脚本
-- 上报相关的打点
-- css 内联避免页面的闪动
-- 减少 http 的网络请求，url-loader 原理一致
+```shell
+
+npm i glob -D
+
+```
 
 <br />
 
 ### 相关资源
 
-[px2rem-loader](https://www.npmjs.com/package/px2rem-loader)
-
-[lib-flexible](https://www.npmjs.com/package/lib-flexible)
+[glob](https://github.com/isaacs/node-glob#readme)
 
 <br />
-
-### 其他
-
-关于 vw\vh 的适配方案也可以参考搭建的轮子：
-
-[vue-cli H5 适配 多页配置](https://github.com/yangfan-coder/amazing-vue-MultiplePages)
-
-[react-react-app 适配方案](https://github.com/yangfan-coder/react-app-h5)

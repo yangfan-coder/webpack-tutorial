@@ -1,17 +1,56 @@
 'use strict';
 
+const glob = require('glob');
 const path = require('path');
 const MiniCssExtractplugin = require('mini-css-extract-plugin'); // 提取css单独一个文件
 const OptimizeCssAssetsWebpackPlugin = require('optimize-css-assets-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
+// ! 设置多页面打包
+
+const setMAP = () => {
+  const entry = {};
+  const HtmlWebpackPlugins = [];
+
+  const entryFiles = glob.sync(path.join(__dirname, './src/*/index.js'));
+
+  Object.keys(entryFiles).map((item) => {
+    const entryFile = entryFiles[item];
+
+    // 获取文件夹的名称
+    const match = entryFile.match(/src\/(.*)\/index\.js/);
+    const pageName = match && match[1];
+
+    entry[pageName] = entryFile;
+    HtmlWebpackPlugins.push(
+      new HtmlWebpackPlugin({
+        template: path.join(__dirname, `src/${pageName}/index.html`),
+        filename: `${pageName}.html`,
+        chunks: [pageName],
+        inject: true,
+        minify: {
+          html5: true,
+          collapseWhitespace: true,
+          preserveLineBreaks: false,
+          minifyCSS: true,
+          minifyJS: true,
+          removeComments: false,
+        },
+      }),
+    );
+  });
+
+  return {
+    entry,
+    HtmlWebpackPlugins,
+  };
+};
+
+const { entry, HtmlWebpackPlugins } = setMAP();
+
 module.exports = {
-  entry: {
-    // 入口文件可以用对象的形式来写
-    index: './src/index.js',
-    search: './src/search.js',
-  },
+  entry,
   output: {
     path: path.join(__dirname, 'dist'),
     filename: '[name]_[chunkhash:8].js', // chunkhash 8位的长度
@@ -92,34 +131,7 @@ module.exports = {
       assetNameRegExp: /.css$/g,
       cssProcessor: require('cssnano'),
     }),
-    new HtmlWebpackPlugin({
-      template: path.join(__dirname, 'src/search.html'),
-      filename: 'search.html',
-      chunks: ['search'],
-      inject: true,
-      minify: {
-        html5: true,
-        collapseWhitespace: true,
-        preserveLineBreaks: false,
-        minifyCSS: true,
-        minifyJS: true,
-        removeComments: false,
-      },
-    }),
-    new HtmlWebpackPlugin({
-      template: path.join(__dirname, 'src/index.html'),
-      filename: 'index.html',
-      chunks: ['index'],
-      inject: true,
-      minify: {
-        html5: true,
-        collapseWhitespace: true,
-        preserveLineBreaks: false,
-        minifyCSS: true,
-        minifyJS: true,
-        removeComments: false,
-      },
-    }),
+
     new CleanWebpackPlugin(),
-  ],
+  ].concat(HtmlWebpackPlugins),
 };
