@@ -31,4 +31,4 @@ webpack-cli: "^3.3.2"
 - [`webpack-16`](./webpack-16/README.md) &mdash; 多页面打包通用方案
 - [`webpack-17`](./webpack-17/README.md) &mdash; 使用 source map
 - [`webpack-18`](./webpack-18/README.md) &mdash; 提取页面的公共资源
-- [`webpack-19`](./webpack-19/README.md) &mdash; Tree Shaking
+- [`webpack-19`](./webpack-19/README.md) &mdash; 代码分割-动态 import

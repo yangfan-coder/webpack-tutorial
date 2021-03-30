@@ -1,0 +1,10 @@
+@font-face {
+  font-family: 'KsoTouryu_5';
+  src: url('./fonts/KsoTouryu_5.otf') format('truetype');
+}
+
+.box {
+  font-size: 100px;
+  color: red;
+  font-family: 'KsoTouryu_5';
+}
