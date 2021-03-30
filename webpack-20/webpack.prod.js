@@ -1,29 +1,29 @@
-'use strict';
+'use strict'
 
-const glob = require('glob');
-const path = require('path');
-const MiniCssExtractplugin = require('mini-css-extract-plugin'); // 提取css单独一个文件
-const OptimizeCssAssetsWebpackPlugin = require('optimize-css-assets-webpack-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const glob = require('glob')
+const path = require('path')
+const MiniCssExtractplugin = require('mini-css-extract-plugin') // 提取css单独一个文件
+const OptimizeCssAssetsWebpackPlugin = require('optimize-css-assets-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 // const HtmlWebpackExternalsPlugin = require('html-webpack-externals-plugin');
 
 // ! 设置多页面打包
 
 const setMAP = () => {
-  const entry = {};
-  const HtmlWebpackPlugins = [];
+  const entry = {}
+  const HtmlWebpackPlugins = []
 
-  const entryFiles = glob.sync(path.join(__dirname, './src/*/index.js'));
+  const entryFiles = glob.sync(path.join(__dirname, './src/*/index.js'))
 
   Object.keys(entryFiles).map((item) => {
-    const entryFile = entryFiles[item];
+    const entryFile = entryFiles[item]
 
     // 获取文件夹的名称
-    const match = entryFile.match(/src\/(.*)\/index\.js/);
-    const pageName = match && match[1];
+    const match = entryFile.match(/src\/(.*)\/index\.js/)
+    const pageName = match && match[1]
 
-    entry[pageName] = entryFile;
+    entry[pageName] = entryFile
     HtmlWebpackPlugins.push(
       new HtmlWebpackPlugin({
         template: path.join(__dirname, `src/${pageName}/index.html`),
@@ -36,36 +36,36 @@ const setMAP = () => {
           preserveLineBreaks: false,
           minifyCSS: true,
           minifyJS: true,
-          removeComments: false,
-        },
-      }),
-    );
-  });
+          removeComments: false
+        }
+      })
+    )
+  })
 
   return {
     entry,
-    HtmlWebpackPlugins,
-  };
-};
+    HtmlWebpackPlugins
+  }
+}
 
-const { entry, HtmlWebpackPlugins } = setMAP();
+const { entry, HtmlWebpackPlugins } = setMAP()
 
 module.exports = {
   entry,
   output: {
     path: path.join(__dirname, 'dist'),
-    filename: '[name]_[chunkhash:8].js', // chunkhash 8位的长度
+    filename: '[name]_[chunkhash:8].js' // chunkhash 8位的长度
   },
   mode: 'production',
   module: {
     rules: [
       {
         test: /.js$/,
-        use: 'babel-loader',
+        use: 'babel-loader'
       },
       {
         test: /.css$/, // 配置css的后缀名
-        use: [MiniCssExtractplugin.loader, 'css-loader'], //tips:执行的顺序是右到左的
+        use: [MiniCssExtractplugin.loader, 'css-loader'] // tips:执行的顺序是右到左的
       },
       {
         test: /.less$/, // 配置less的后缀名
@@ -79,26 +79,26 @@ module.exports = {
               plugins: [
                 require('autoprefixer')({
                   browsers: [
-                    //浏览器列表
+                    // 浏览器列表
                     'ie>=8',
                     'Firefox>=20',
                     'Safari>=5',
                     'Android>=4',
                     'Ios>=6',
-                    'last 4 version',
-                  ],
-                }),
-              ],
-            },
+                    'last 4 version'
+                  ]
+                })
+              ]
+            }
           },
           {
             loader: 'px2rem-loader',
             options: {
               remUnit: 75,
-              remPrecision: 8,
-            },
-          },
-        ], //tips:执行的顺序是右到左的
+              remPrecision: 8
+            }
+          }
+        ] // tips:执行的顺序是右到左的
       },
       {
         test: /.(png|jpg|gif|jpeg)$/,
@@ -106,10 +106,10 @@ module.exports = {
           {
             loader: 'file-loader',
             options: {
-              name: '[name]_[hash:8].[ext]',
-            },
-          },
-        ],
+              name: '[name]_[hash:8].[ext]'
+            }
+          }
+        ]
       },
       {
         test: /.(woff|woff2|eot|ttf|otf)$/,
@@ -117,23 +117,23 @@ module.exports = {
           {
             loader: 'file-loader',
             options: {
-              name: '[name]_[hash:8].[ext]',
-            },
-          },
-        ],
-      },
-    ],
+              name: '[name]_[hash:8].[ext]'
+            }
+          }
+        ]
+      }
+    ]
   },
   plugins: [
     new MiniCssExtractplugin({
-      filename: '[name]_[contenthash:8].css',
+      filename: '[name]_[contenthash:8].css'
     }),
     new OptimizeCssAssetsWebpackPlugin({
       assetNameRegExp: /.css$/g,
-      cssProcessor: require('cssnano'),
+      cssProcessor: require('cssnano')
     }),
 
-    new CleanWebpackPlugin(),
+    new CleanWebpackPlugin()
 
     // new HtmlWebpackExternalsPlugin({
     //   // 提取公共资源
@@ -170,10 +170,10 @@ module.exports = {
         commons: {
           minChunks: 2, // 最少引入的次数
           name: 'commons',
-          chunks: 'all',
-        },
-      },
-    },
+          chunks: 'all'
+        }
+      }
+    }
   },
-  devtool: 'inline-source-map', // !   配置不同的source-map
-};
+  devtool: 'inline-source-map' // !   配置不同的source-map
+}

@@ -5,9 +5,16 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "eslint": "standard && node src/*/*.js",
+    "flx": "standard --fix",
     "build": "webpack --config webpack.prod.js",
     "watch": "webpack --watch",
     "dev": "webpack-dev-server --open --config webpack.dev.js"
+  },
+  "standard": {
+    "ignore": [
+      "webpack.*.js"
+    ]
   },
   "keywords": [],
   "author": "",
@@ -35,6 +42,7 @@
     "raw-loader": "^0.5.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
+    "standard": "^16.0.3",
     "style-loader": "^2.0.0",
     "url-loader": "^4.1.1",
     "webpack": "^4.31.0",

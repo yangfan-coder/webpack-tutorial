@@ -1,7 +1,7 @@
-import React from 'react';
+import React from 'react'
 
 const Text = () => {
-  return <div>我是动态import</div>;
-};
+  return <div>我是动态import</div>
+}
 
-export default Text;
+export default Text

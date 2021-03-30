@@ -30,7 +30,3 @@ npm run build
 
 - 抽离想用的代码到一个共享快
 - 脚本懒加载、使得初始下载的代码更小
-
-### 相关资源
-
-<!-- [Tree Shaking](https://webpack.docschina.org/guides/tree-shaking/) <br /> -->
