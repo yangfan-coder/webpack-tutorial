@@ -1,42 +1,17 @@
 'use strict';
 
-// import React from 'react';
-// import largeNumber from 'large-number';
-// import logo from './images/logo.png';
-// import './search.less';
 const React = require('react');
 const logo = require('./images/im1.jpg');
-const s = require('./search01.less');
 
-class Search extends React.Component {
-  constructor() {
-    super(...arguments);
+require('./search01.less');
 
-    this.state = {
-      Text: null,
-    };
-  }
-
-  loadComponent() {
-    import('./text.js').then((Text) => {
-      this.setState({
-        Text: Text.default,
-      });
-    });
-  }
-
-  render() {
-    const { Text } = this.state;
-    // const addResult = largeNumber('999', '1');
-    return (
-      <div className='search-text'>
-        {Text ? <Text /> : null}
-        {/* {addResult} */}
-        搜索文字的内容
-        <img src={logo} onClick={this.loadComponent.bind(this)} />
-      </div>
-    );
-  }
-}
+const Search = () => {
+  return (
+    <div className='box'>
+      搜索文字的内容
+      <img src={logo} />
+    </div>
+  );
+};
 
 module.exports = <Search />;

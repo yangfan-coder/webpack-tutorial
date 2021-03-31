@@ -33,3 +33,4 @@ webpack-cli: "^3.3.2"
 - [`webpack-18`](./webpack-18/README.md) &mdash; 提取页面的公共资源
 - [`webpack-19`](./webpack-19/README.md) &mdash; 代码分割-动态 import
 - [`webpack-20`](./webpack-20/README.md) &mdash; 配置 eslint
+- [`webpack-21`](./webpack-21/README.md) &mdash; 简易的服务器 SSR 配置
