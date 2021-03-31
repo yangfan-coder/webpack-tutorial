@@ -19,17 +19,21 @@ module.exports = {
       {
         test: /.js$/,
         use: 'babel-loader',
+        exclude: /node_modules/,
       },
       {
         test: /.css$/, // 配置css的后缀名
+        exclude: /node_modules/,
         use: [MiniCssExtractplugin.loader, 'css-loader'], //tips:执行的顺序是右到左的
       },
       {
         test: /.less$/, // 配置less的后缀名
+        exclude: /node_modules/,
         use: [MiniCssExtractplugin.loader, 'css-loader', 'less-loader'], //tips:执行的顺序是右到左的
       },
       {
         test: /.(png|jpg|gif|jpeg)$/,
+        exclude: /node_modules/,
         use: [
           {
             loader: 'file-loader',
@@ -41,6 +45,7 @@ module.exports = {
       },
       {
         test: /.(woff|woff2|eot|ttf|otf)$/,
+        exclude: /node_modules/,
         use: [
           {
             loader: 'file-loader',

@@ -59,21 +59,26 @@ module.exports = {
       filename: '[name]_[contenthash:8].css',
     }),
     new OptimizeCssAssetsWebpackPlugin({
-      assetNameRegExp: /.css$/g,
-      cssProcessor: require('cssnano'),
+      assetNameRegExp: /.css$/g, // 匹配的正则的名称后缀、跟loader配置一致
+      cssProcessor: require('cssnano'), // 用于最小化的css处理器，默认是cssnano
     }),
     new HtmlWebpackPlugin({
       template: path.join(__dirname, 'src/search.html'),
       filename: 'search.html',
       chunks: ['search'],
+      /**
+       * inject : true || 'head' || 'body' || false
+       * body : 所有javascript资源将被放置在body元素的底部。
+       * head : 把脚本放置在head元素中.
+       * true : script标签位于html文件的 body 底部 [默认]
+       * false: 不插入生成的 js 文件，只是单纯的生成一个 html 文件
+       *  */
       inject: true,
       minify: {
-        html5: true,
-        collapseWhitespace: true,
-        preserveLineBreaks: false,
-        minifyCSS: true,
-        minifyJS: true,
-        removeComments: false,
+        collapseWhitespace: true, // 清理html中的空格、换行符。 默认值：false
+        minifyCSS: true, // 压缩html内的样式。默认值：false
+        minifyJS: true, // 压缩html内的js。 默认值：false
+        removeComments: false, // 清理html中的注释。 默认值：false
       },
     }),
     new HtmlWebpackPlugin({
